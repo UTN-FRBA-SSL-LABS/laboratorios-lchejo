@@ -16,7 +16,12 @@
  * Post: devuelve el valor entero correspondiente a la cadena */
 int ToInteger(const char *s);
 
-/* TODO: agregar una operacion a definir libremente.
- * Documentar Pre, Post y firma antes del prototipo. */
+/* IsInteger: String -> Boolean
+ * Pre:  s != NULL
+ * Post: devuelve 1 si s representa un entero decimal valido en base 10
+ *       (digitos con signo '-' opcional al inicio, al menos un digito);
+ *       devuelve 0 en caso contrario (cadena vacia, solo signo, espacios,
+ *       caracteres no digito, signos repetidos, etc.) */
+int IsInteger(const char *s);
 
 #endif

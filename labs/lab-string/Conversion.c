@@ -1,4 +1,5 @@
 #include "Conversion.h"
+#include "String.h"
 
 /*
  * Conversion.c — Implementacion de operaciones de conversion
@@ -14,9 +15,27 @@ int ToInteger(const char *s) {
     if (*s == '-') { signo = -1; s++; }
     for (; *s != '\0'; s++)
         resultado = resultado * 10 + (*s - '0');
-    return signo; /* bug: falta multiplicar signo por resultado */
+    return signo * resultado; 
 }
 
 /* ── Operacion libre ─────────────────────────────────────────────────────── */
 
-/* TODO */
+/*
+ * IsInteger — devuelve 1 si s representa un entero decimal valido.
+ *
+ * Acepta:  "0", "123", "-5", "42"
+ * Rechaza: "", "-", "+", " 1", "1 ", "12a", "1.5", "--1"
+ *
+ * Contrato:
+ *   pre:  s != NULL
+ *   post: devuelve 1 si s es un entero decimal bien formado, 0 en caso contrario
+ */
+int IsInteger(const char *s) {
+    if (IsEmpty(s)) return 0;        /* cadena vacia: no valido */
+    if (*s == '-') s++;              /* signo negativo opcional */
+    if (IsEmpty(s)) return 0;        /* solo "-": no valido */
+    for (; !IsEmpty(s); s++)
+        if (*s < '0' || *s > '9')
+            return 0;                /* caracter no digito: no valido */
+    return 1;
+}
